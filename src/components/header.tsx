@@ -24,7 +24,7 @@ const Header = ({ user }: propsTypes) => {
             setIsOpen(false)
         } catch (error) {
             setIsOpen(false)
-            toast.success("Logout Failed", error)
+            toast.success("Logout Failed")
         }
     }
 

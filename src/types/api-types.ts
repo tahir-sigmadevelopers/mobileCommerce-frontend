@@ -1,4 +1,4 @@
-import { Bar, Line, Order, Pie, Product, shippingInfo, Stats, User } from "./types";
+import { Bar, CartItem, Line, Order, Pie, Product, shippingInfo, Stats, User } from "./types";
 
 export type CustomEror = {
     status: number;
@@ -105,7 +105,7 @@ export type NewProductRequest = {
 
 export type UpdateProductRequest = {
     userId: string;
-    productId: string ;
+    productId: string;
     formData: FormData;
 }
 
@@ -122,7 +122,7 @@ export type DeleteUserRequest = {
 export type NewOrderRequest = {
     user: string;
     shippingInfo: shippingInfo;
-    orderItems: [],
+    orderItems: CartItem[],
     subtotal: number,
     total: number,
     discount: number,
