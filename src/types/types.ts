@@ -8,6 +8,15 @@ export type User = {
     _id: string,
 }
 
+export type Review = {
+    comment: string;
+    user: {
+        _id: string;
+        name: string;
+        image: string;
+    };
+}
+
 
 export type Product = {
     title: string,
@@ -16,7 +25,8 @@ export type Product = {
     stock: number,
     image: string,
     _id: string,
-    quantity: number
+    quantity: number,
+    reviews?: []
 }
 
 export type shippingInfo = {

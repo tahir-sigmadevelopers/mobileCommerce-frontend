@@ -7,7 +7,7 @@ import { auth } from "../firebase"
 import toast from "react-hot-toast"
 
 
-interface propsTypes {
+export interface propsTypes {
     user: User | null
 }
 
@@ -15,6 +15,7 @@ const Header = ({ user }: propsTypes) => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
+    
     const logoutHandler = async () => {
         try {
             // Make a request to the backend to logout the user
@@ -43,11 +44,11 @@ const Header = ({ user }: propsTypes) => {
                     </button>
                     <dialog open={isOpen}>
                         <div>
-                            {/* {
+                            {
                                 user?.role === 'admin' && (
                                     <Link onClick={() => setIsOpen(false)} to="/admin/dashboard">Admin</Link>
                                 )
-                            } */}
+                            }
                             <Link onClick={() => setIsOpen(false)} to="/orders">Orders</Link>
                             <button onClick={logoutHandler}>
                                 <FaSignOutAlt />

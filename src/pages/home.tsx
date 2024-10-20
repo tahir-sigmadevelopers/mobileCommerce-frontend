@@ -59,6 +59,7 @@ const Home = () => {
                 price={product.price}
                 image={product.image}
                 handler={addToCartHandler}
+                
               />
             ))
         }
