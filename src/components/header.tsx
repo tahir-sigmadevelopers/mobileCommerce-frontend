@@ -34,8 +34,8 @@ const Header = ({ user }: propsTypes) => {
         <nav className="header">
 
             <Link onClick={() => setIsOpen(false)} to="/">Home</Link>
-            <Link onClick={() => setIsOpen(false)} to="/search"><FaSearch /></Link>
-            <Link onClick={() => setIsOpen(false)} to="/cart"><FaShoppingBag /></Link>
+            <Link className="mt-1" onClick={() => setIsOpen(false)} to="/search"><FaSearch /></Link>
+            <Link className="mt-1" onClick={() => setIsOpen(false)} to="/cart"><FaShoppingBag /></Link>
 
             {
                 user?._id ? <>
@@ -57,7 +57,7 @@ const Header = ({ user }: propsTypes) => {
                     </dialog>
                 </> : <>
 
-                    <Link onClick={() => setIsOpen(false)} to="/login"><FaSignInAlt /></Link>
+                    <Link className="mt-1" onClick={() => setIsOpen(false)} to="/login"><FaSignInAlt /></Link>
                 </>
             }
         </nav>
