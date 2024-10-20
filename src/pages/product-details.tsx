@@ -166,7 +166,7 @@ const ProductDetails = () => {
                                     <DialogTitle>Submit Review</DialogTitle>
                                     <DialogContent className="submitDialog">
                                         <Rating
-                                            onChange={(event, newValue) => {
+                                            onChange={(_, newValue) => {
                                                 setRating(newValue!);
                                             }}
                                             value={rating}
