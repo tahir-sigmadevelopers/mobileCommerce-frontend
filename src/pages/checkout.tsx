@@ -89,11 +89,7 @@ const CheckOut = () => {
 
     const clientSecret: string | undefined = location.state
 
-
     if (!clientSecret) return <Navigate to={"/shipping"} />
-
-
-
 
 
     return (

@@ -65,7 +65,6 @@ const ProductDetails = () => {
 
     const { cartItems } = useSelector((state: { cartReducer: CartReducerInitialState }) => state.cartReducer)
 
-    console.log(reviews);
 
     const addToCartHandler = (cartItem: CartItem) => {
         if (cartItem.stock < 1) return toast.error("Out of Stock!")

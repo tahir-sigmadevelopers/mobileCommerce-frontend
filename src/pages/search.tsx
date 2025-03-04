@@ -14,7 +14,6 @@ const Search = () => {
   const { isError, isLoading: loadingCategories, error, data: categoriesResponse } = useAllCategoriesQuery("")
 
 
-
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState("")
   const [sort, setSort] = useState("")
@@ -47,7 +46,6 @@ const Search = () => {
     if (cartItem.stock <= currentQuantity) {
       return toast.error("Can't Add More than Available Stock!");
     }
-
 
     dispatch(addToCart(cartItem))
     toast.success("Added to Cart");

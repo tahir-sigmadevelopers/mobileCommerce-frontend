@@ -34,6 +34,7 @@ const Header = ({ user }: propsTypes) => {
         <nav className="header">
 
             <Link onClick={() => setIsOpen(false)} to="/">Home</Link>
+            <Link onClick={() => setIsOpen(false)} to="/about">About</Link>
             <Link className="mt-1" onClick={() => setIsOpen(false)} to="/search"><FaSearch /></Link>
             <Link className="mt-1" onClick={() => setIsOpen(false)} to="/cart"><FaShoppingBag /></Link>
 
