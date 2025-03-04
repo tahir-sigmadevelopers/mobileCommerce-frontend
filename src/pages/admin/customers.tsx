@@ -21,72 +21,54 @@ interface DataType {
 }
 
 const columns: Column<DataType>[] = [
-  {
-    Header: "Avatar",
-    accessor: "avatar",
-  },
-  {
-    Header: "Name",
-    accessor: "name",
-  },
-  {
-    Header: "Gender",
-    accessor: "gender",
-  },
-  {
-    Header: "Email",
-    accessor: "email",
-  },
-  {
-    Header: "Role",
-    accessor: "role",
-  },
-  {
-    Header: "Action",
-    accessor: "action",
-  },
+  { Header: "Avatar", accessor: "avatar" },
+  { Header: "Name", accessor: "name" },
+  { Header: "Gender", accessor: "gender" },
+  { Header: "Email", accessor: "email" },
+  { Header: "Role", accessor: "role" },
+  { Header: "Action", accessor: "action" },
 ];
 
 const Customers = () => {
-
-  const { user } = useSelector((state: RootState) => state.userReducer)
-
-  const { isError, isLoading, error, data } = useAllUsersQuery(user?._id!)
+  const { user } = useSelector((state: RootState) => state.userReducer);
+  const { isError, isLoading, error, data } = useAllUsersQuery(user?._id!);
 
   if (isError) {
     const err = error as CustomEror;
-    toast.error(err.data.message)
+    toast.error(err.data.message);
   }
 
   const [rows, setRows] = useState<DataType[]>([]);
+  const [deleteUser] = useDeleteUserMutation();
 
-  const [deleteUser] = useDeleteUserMutation()
-
+  const confirmDelete = (userId: string) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      deleteHandler(userId);
+    }
+  };
 
   const deleteHandler = async (userId: string) => {
-    const res = await deleteUser({ userId, adminId: user?._id! })
-    responseToast(res, null, "")
-  }
+    const res = await deleteUser({ userId, adminId: user?._id! });
+    responseToast(res, null, "");
+  };
 
   useEffect(() => {
- 
-
-    if (data) setRows(data.users.map((user) => (
-      {
-        avatar: <img src={`${user.image}`} alt={user.name} />,
-        name: user.name,
-        email: user.email,
-        gender: user.gender,
-        role: user.role,
-        action: (<button onClick={() => deleteHandler(user._id)} >
-          <FaTrash />
-        </button >
-        )
-      }
-    )));
-  }, [data])
-
-
+    if (data)
+      setRows(
+        data.users.map((user) => ({
+          avatar: <img src={`${user.image}`} alt={user.name} />,
+          name: user.name,
+          email: user.email,
+          gender: user.gender,
+          role: user.role,
+          action: (
+            <button onClick={() => confirmDelete(user._id)}>
+              <FaTrash />
+            </button>
+          ),
+        }))
+      );
+  }, [data]);
 
   const Table = TableHOC<DataType>(
     columns,

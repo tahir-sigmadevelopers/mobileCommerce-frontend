@@ -9,13 +9,19 @@ const About = () => {
   };
 
   return (
-    <div className="aboutSection">
+    <div className="aboutSection ">
       <div></div>
       <div className="aboutSectionGradient"></div>
       <motion.div
         className="aboutSectionContainer" >
-        <Typography component="h1">About Us</Typography>
-
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
+          className="flex justify-center mt-10 heading-main "
+        >
+          <Typography component="h1" fontSize={33} className="heading-about ">About Us</Typography>
+        </motion.div>
         <div>
           <motion.div
             animate={{ y: [0, -15, 0] }}

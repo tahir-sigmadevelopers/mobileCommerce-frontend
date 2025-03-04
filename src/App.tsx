@@ -51,9 +51,12 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       startTransition(() => {
+        
         if (user) {
           getUser(user.uid).then((data) => {
             dispatch(userExist(data.user));
+            console.log(data.user);
+            
           });
         } else {
           dispatch(userNotExist());
