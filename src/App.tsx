@@ -1,30 +1,31 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import { lazy, Suspense, useEffect } from "react"
-import Loader from "./components/loader"
-import Header from "./components/header"
-import { Toaster } from "react-hot-toast"
-import { onAuthStateChanged } from "firebase/auth"
-import { auth } from "./firebase"
-import { useDispatch, useSelector } from "react-redux"
-import { userExist, userNotExist } from "./redux/reducers/userReducers"
-import { getUser } from "./redux/api/UserAPI"
-import { UserReducerInitialState } from "./types/reducer-types"
-import ProtectedRoute from "./components/ProtectedRoute"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { lazy, Suspense, useEffect, startTransition } from "react";
+import Loader from "./components/loader";
+import Header from "./components/header";
+import { Toaster } from "react-hot-toast";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { userExist, userNotExist } from "./redux/reducers/userReducers";
+import { getUser } from "./redux/api/UserAPI";
+import { UserReducerInitialState } from "./types/reducer-types";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-const Home = lazy(() => import("./pages/home"))
-const Cart = lazy(() => import("./pages/cart"))
-const Search = lazy(() => import("./pages/search"))
-const Shipping = lazy(() => import("./pages/shipping"))
-const Login = lazy(() => import("./pages/login"))
-const Orders = lazy(() => import("./pages/orders"))
-const OrderDetails = lazy(() => import("./pages/order-details"))
-const NotFound = lazy(() => import("./pages/not-found"))
-const Checkout = lazy(() => import("./pages/checkout"))
-const ProductDetails = lazy(() => import("./pages/product-details"))
-const About = lazy(() => import("./components/About"))
+const Home = lazy(() => import("./pages/home"));
+const Cart = lazy(() => import("./pages/cart"));
+const Search = lazy(() => import("./pages/search"));
+const Shipping = lazy(() => import("./pages/shipping"));
+const Login = lazy(() => import("./pages/login"));
+const Orders = lazy(() => import("./pages/orders"));
+const OrderDetails = lazy(() => import("./pages/order-details"));
+const NotFound = lazy(() => import("./pages/not-found"));
+const Checkout = lazy(() => import("./pages/checkout"));
+const ProductDetails = lazy(() => import("./pages/product-details"));
+const About = lazy(() => import("./components/About"));
+const Footer = lazy(() => import("./components/Footer"));
+const Contact = lazy(() => import("./components/Contact"));
 
-// Admin Routes 
-
+// Admin Routes
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const Products = lazy(() => import("./pages/admin/products"));
 const Customers = lazy(() => import("./pages/admin/customers"));
@@ -43,84 +44,76 @@ const TransactionManagement = lazy(
   () => import("./pages/admin/management/transactionmanagement")
 );
 
-
 const App = () => {
-  const dispatch = useDispatch()
-  const { user, loading } = useSelector((state: { userReducer: UserReducerInitialState }) => state.userReducer)
+  const dispatch = useDispatch();
+  const { user, loading } = useSelector((state: { userReducer: UserReducerInitialState }) => state.userReducer);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const data = await getUser(user.uid)
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      startTransition(() => {
+        if (user) {
+          getUser(user.uid).then((data) => {
+            dispatch(userExist(data.user));
+          });
+        } else {
+          dispatch(userNotExist());
+          console.log("Not Logged in");
+        }
+      });
+    });
 
-        dispatch(userExist(data.user))
-      } else {
-        dispatch(userNotExist())
-        console.log("Not Logged in");
-      }
-    })
-  }, [])
+    return () => unsubscribe(); // Cleanup function to unsubscribe on unmount
+  }, [dispatch]);
 
-  return loading ? < Loader /> : (
+  return loading ? <Loader /> : (
     <Router>
-      <Header user={user} />
-      <Suspense fallback={<Loader />} >
+      <Suspense fallback={<Loader />}>
+        <Header user={user} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/login" element={
+            <ProtectedRoute isAuthenticated={!user}>
+              <Login />
+            </ProtectedRoute>
+          } />
 
-          {/* Not Logged In Route  */}
-
-          <Route path="/login" element={<ProtectedRoute isAuthenticated={user ? false : true}><Login /></ProtectedRoute>} />
-
-          {/* Logged In User Routes  */}
-
-          <Route element={<ProtectedRoute isAuthenticated={user ? true : false} />}>
+          {/* Logged-in Routes */}
+          <Route element={<ProtectedRoute isAuthenticated={!!user} />}>
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/order/:id" element={<OrderDetails />} />
             <Route path="/pay" element={<Checkout />} />
-
           </Route>
-          {/* Admin Routes  */}
 
-          <Route
-            element={
-              <ProtectedRoute isAuthenticated={true} admin={user?.role === "admin" ? true : false} adminOnly={true} />
-            }
-          >
+          {/* Admin Routes */}
+          <Route element={<ProtectedRoute isAuthenticated={!!user} adminOnly={user?.role === "admin"} />}>
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/product" element={<Products />} />
             <Route path="/admin/customer" element={<Customers />} />
             <Route path="/admin/transaction" element={<Transaction />} />
-
-            {/* Charts */}
             <Route path="/admin/chart/bar" element={<Barcharts />} />
             <Route path="/admin/chart/pie" element={<Piecharts />} />
             <Route path="/admin/chart/line" element={<Linecharts />} />
-
-            {/* Apps */}
             <Route path="/admin/app/coupon" element={<Coupon />} />
             <Route path="/admin/app/stopwatch" element={<Stopwatch />} />
             <Route path="/admin/app/toss" element={<Toss />} />
-
-            {/* Management */}
             <Route path="/admin/product/new" element={<NewProduct />} />
-
             <Route path="/admin/product/:id" element={<ProductManagement />} />
-
             <Route path="/admin/transaction/:id" element={<TransactionManagement />} />
           </Route>
+
           <Route path="*" element={<NotFound />} />
-
         </Routes>
-      </Suspense >
-      <Toaster position="bottom-center" />
-    </Router >
-  )
-}
+        <Footer />
+        <Toaster position="bottom-center" />
+      </Suspense>
+    </Router>
+  );
+};
 
-export default App
+export default App;

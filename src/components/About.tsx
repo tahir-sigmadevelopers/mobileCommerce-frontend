@@ -13,18 +13,18 @@ const About = () => {
       <div></div>
       <div className="aboutSectionGradient"></div>
       <motion.div
-      
+
         className="aboutSectionContainer"
       >
         <Typography component="h1">About Us</Typography>
 
         <div>
           <motion.div
-            
-          animate={{ y: [0, -15, 0] }}
-          transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-        
-          
+
+            animate={{ y: [0, -15, 0] }}
+            transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+
+
           >
             <Avatar
               style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
@@ -36,21 +36,28 @@ const About = () => {
               Visit Instagram
             </Button>
             <span>
-              This is an Mobile ECommerce Store Build In MERN STACK done by Mohammad
+              This is an Mobile E-Commerce Store Build In MERN STACK done by Mohammad
               Tahir. I enjoyed and learned a lot by this project. Feeling Happy
               😉😎🥰.
             </span>
           </motion.div>
-          <div className="aboutSectionContainer2">
-            <Typography component="h2">Our Brands</Typography>
-            <a href="https://www.linkedin.com/in/ghareebstar" target="blank">
-              <LinkedInIcon className="youtubeSvgIcon" />
-            </a>
+          <motion.div
+            className="aboutSectionContainer2"
+            animate={{ y: [20, -50, 20] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          >
+            <Typography component="h2" >Our Brands</Typography>
 
-            <a href="https://instagram.com/tahirsultanofficial" target="blank">
-              <InstagramIcon className="instagramSvgIcon" />
-            </a>
-          </div>
+            <div className="flex gap-2">
+              <a href="https://www.linkedin.com/in/muhammad-tahir-432635351" target="blank">
+                <LinkedInIcon className="text-blue-600 linkedInSvgIcon" /> {/* Increased size */}
+              </a>
+
+              <a href="https://instagram.com/tahirsultanofficial" target="blank">
+                <InstagramIcon className="instagramSvgIcon " /> {/* Increased size */}
+              </a>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
     </div>
