@@ -13,18 +13,13 @@ const About = () => {
       <div></div>
       <div className="aboutSectionGradient"></div>
       <motion.div
-
-        className="aboutSectionContainer"
-      >
+        className="aboutSectionContainer" >
         <Typography component="h1">About Us</Typography>
 
         <div>
           <motion.div
-
             animate={{ y: [0, -15, 0] }}
             transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-
-
           >
             <Avatar
               style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
@@ -43,7 +38,7 @@ const About = () => {
           </motion.div>
           <motion.div
             className="aboutSectionContainer2"
-            animate={{ y: [20, -50, 20] }}
+            animate={{ y: [0, -30, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
           >
             <Typography component="h2" >Our Brands</Typography>
