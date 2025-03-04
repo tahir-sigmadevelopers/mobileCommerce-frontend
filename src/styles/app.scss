@@ -64,6 +64,19 @@ a {
 .header {
   @include flex(row, flex-end, stretch, 1.2rem);
   padding: 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); // Adds a subtle shadow at the bottom
+  z-index: 1000;
+
+
+  .logo {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 50px; // Adjust as needed
+      width: auto;
+    }
+  }
 
   a {
     color: $color2;
