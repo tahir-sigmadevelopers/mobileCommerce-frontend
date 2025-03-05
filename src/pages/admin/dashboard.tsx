@@ -28,10 +28,11 @@ const Dashboard = () => {
       {
         isLoading ? <Skeleton length={20} /> : <main className="dashboard">
           <div className="bar">
-            <BsSearch />
-            <input type="text" placeholder="Search for data, users, docs" />
+            {/* <BsSearch /> */}
+            {/* <input type="text" placeholder="Search for data, users, docs" /> */}
             <FaRegBell />
             <img src={user?.image || userImg} alt="User" />
+            <h2 className="font-semibold ">Admin Dashboard</h2>
           </div>
 
           <section className="widget-container">
