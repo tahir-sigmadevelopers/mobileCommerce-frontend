@@ -1,5 +1,4 @@
 import { BiMaleFemale } from "react-icons/bi";
-import { BsSearch } from "react-icons/bs";
 import { FaRegBell } from "react-icons/fa";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import { useSelector } from "react-redux";
