@@ -14,6 +14,7 @@ type ProductProps = {
 
 const ProductCard = ({ image, productId, stock, price, title, handler }: ProductProps) => {
 
+  console.log(image);
 
 
   return (
