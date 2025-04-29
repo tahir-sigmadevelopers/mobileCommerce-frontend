@@ -33,7 +33,7 @@ const Home = () => {
   }
 
   if (isError) toast.error("Cannot Fetch Products")
-
+  }
 
 
     
