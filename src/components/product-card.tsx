@@ -19,7 +19,7 @@ const ProductCard = ({ image, productId, stock, price, title, handler }: Product
 
   return (
     <div className="product-card">
-      <img src={`${server}/${image}`} height={100} width={100} alt={title} />
+      <img src={`${image}`} height={100} width={100} alt={title} />
       <p>{title}</p>
       <span>${price}</span>
       <div>
