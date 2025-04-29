@@ -14,6 +14,7 @@ const Home = () => {
 
   const dispatch = useDispatch()
 
+  const navigate = useNavigate()
   const { cartItems } = useSelector((state: { cartReducer: CartReducerInitialState }) => state.cartReducer)
 
   const addToCartHandler = (cartItem: CartItem) => {
@@ -29,12 +30,15 @@ const Home = () => {
 
     dispatch(addToCart(cartItem))
     toast.success("Added to Cart");
+    navigate(`/product/${cartItem?.productId}`)
   }
 
   if (isError) toast.error("Cannot Fetch Products")
 
 
 
+    console.log(data?.);
+    
   return (
     <div className="home">
       <section>

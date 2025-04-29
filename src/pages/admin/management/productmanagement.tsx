@@ -99,7 +99,7 @@ const Productmanagement = () => {
           isLoading ? <Skeleton length={20} /> : <>
             <section>
               <strong>ID - {data?.product._id}</strong>
-              <img src={`${server}/${image}`} alt="Product" />
+              <img src={`${image}`} alt="Product" />
               <p>{title}</p>
               {stock > 0 ? (
                 <span className="green">{stock} Available</span>
