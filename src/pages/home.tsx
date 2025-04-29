@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 import ProductCard from "../components/product-card"
 import { useLatestProductsQuery } from "../redux/api/ProductAPI"
 import toast from "react-hot-toast"
@@ -7,7 +7,6 @@ import { CartItem } from "../types/types"
 import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../redux/reducers/cartReducers"
 import { CartReducerInitialState } from "../types/reducer-types"
-
 const Home = () => {
 
   const { data, isError, isLoading } = useLatestProductsQuery("")
